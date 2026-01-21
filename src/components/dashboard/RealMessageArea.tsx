@@ -933,9 +933,12 @@ export default function RealMessageArea({
                 </Avatar>
               )}
               <h2 className="text-lg font-semibold text-gray-100 flex items-center">
-                {selectedConversation?.participant_name && selectedConversation.participant_name !== "Unknown User"
-                  ? selectedConversation.participant_name
-                  : ''}
+                {selectedConversation?.participant_name && selectedConversation.participant_name !== "Unknown User" ? (
+                  <>
+                    <span className="md:hidden">{selectedConversation.participant_name.split(' ')[0]}</span>
+                    <span className="hidden md:inline">{selectedConversation.participant_name}</span>
+                  </>
+                ) : ''}
                 {/* Badge slightly lower - only show if receiver is executive */}
                 {isReceiverExecutive && (
                   <span className="ml-2 inline-flex items-center justify-center w-5 h-5 relative top-0.5">
@@ -955,7 +958,7 @@ export default function RealMessageArea({
               )} */}
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               {/* Export Chat Button */}
               {/* <Button
                 variant="ghost"
@@ -1006,7 +1009,7 @@ export default function RealMessageArea({
                 {/* <Button variant="ghost" size="icon" className="w-9 h-9 text-gray-500 hover:bg-[#1a1a1a] hover:text-gray-300">
                   <MessageCircle className="w-4 h-4" />
                 </Button> */}
-                <div className="relative">
+                <div className="relative hidden md:block">
                   <Button
                     id="info-button"
                     variant="ghost"
