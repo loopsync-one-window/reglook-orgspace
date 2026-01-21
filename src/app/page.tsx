@@ -149,7 +149,7 @@ export default function Home() {
   return (
     <div
       ref={rootRef}
-      className="min-h-screen relative bg-[url('/images/bg-image.png')] bg-cover bg-center bg-no-repeat text-white overflow-hidden select-none page-fade-in"
+      className="min-h-screen priority relative bg-[url('/images/bg-image.png')] bg-cover bg-center bg-no-repeat text-white overflow-hidden select-none page-fade-in"
       onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); }}
       draggable={false}
     >

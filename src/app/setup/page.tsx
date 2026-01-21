@@ -77,7 +77,7 @@ export default function SetupPage() {
 
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [phone, setPhone] = useState<string>("");
-  const [otp, setOtp] = useState<string>("");
+  const [otp, setOtp] = useState<string>("NEW040");
   const [errors, setErrors] = useState<{ phone?: string; otp?: string; api?: string }>({});
   const [currentStep, setCurrentStep] = useState<"verify" | "profile" | "hr" | "policies" | "work" | "security" | "final">("verify");
   const [saving, setSaving] = useState<boolean>(false);
@@ -669,28 +669,33 @@ export default function SetupPage() {
       onContextMenu={(e) => { e.preventDefault(); e.stopPropagation(); }}
       draggable={false}
     >
-      <div className="absolute top-4 right-4 sm:top-6 sm:right-6 flex items-center gap-2 sm:gap-4 z-30">
-        <button
-          onClick={() => window.location.href = '/sso'}
-          className="text-sm text-white font-semibold cursor-pointer bg-transparent border-none hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-white/10 transition-colors duration-300 p-2"
-        >
-          SSO Login <ExternalLink className="inline-block h-4 text-white" />
-        </button>
+      <div className="absolute top-0 left-0 w-full p-4 sm:p-6 flex items-center justify-between z-30">
+        <div className="flex items-center gap-3 sm:gap-6">
+          <button
+            onClick={() => window.location.href = '/sso'}
+            className="text-sm text-white font-semibold cursor-pointer bg-transparent border-none hover:text-white hover:bg-white/10 focus:outline-none focus:ring-2 focus:ring-white/20 focus:bg-white/10 transition-colors duration-300 rounded-md px-3 py-2 flex items-center gap-2"
+          >
+            SSO Login <ExternalLink className="inline-block h-4 w-4 text-white/80" />
+          </button>
+          {currentStep !== "verify" ? (
+            <a href="/setup/help" className="text-sm text-white/80 hover:text-white transition-colors">Help Center</a>
+          ) : null}
+        </div>
+
         {currentStep !== "verify" ? (
-          <>
-            <a href="/setup/help" className="text-sm text-white underline-offset-4 underline cursor-pointer">Help Center</a>
-            <Avatar className="h-12 w-12 cursor-pointer hover:ring-2 hover:ring-white/30 transition" onClick={openProfilePreview}>
+          <div>
+            <Avatar className="h-10 w-10 sm:h-12 sm:w-12 cursor-pointer hover:ring-2 hover:ring-white/30 transition border border-white/10" onClick={openProfilePreview}>
               <AvatarImage src={photoPreview ?? undefined} alt="Profile" />
               <AvatarFallback className="bg-white/10 flex items-center justify-center">
-                <User className="h-6 w-6 text-white" />
+                <User className="h-5 w-5 sm:h-6 sm:w-6 text-white" />
               </AvatarFallback>
             </Avatar>
-          </>
+          </div>
         ) : null}
       </div>
       <div className={currentStep === "hr" ? "w-full max-w-6xl" : currentStep === "profile" || currentStep === "policies" || currentStep === "work" || currentStep === "security" || currentStep === "final" ? "w-full max-w-3xl" : "w-full max-w-md"}>
         <div className="mb-8 grid place-items-center gap-3 text-center">
-          <Image src="/logos/logo1.svg" alt="Intellaris" width={64} height={64} priority />
+          <Image src="/logos/logo1.svg" alt="Intellaris" width={64} height={64} priority className="mt-8" />
           <h1 className="text-2xl font-semibold mt-10">Setup</h1>
           {currentStep === "verify" ? (
             <p className="text-sm text-zinc-400">Verify your registered phone number to start onboarding</p>
@@ -930,10 +935,10 @@ export default function SetupPage() {
                 <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 cursor-pointer">
                   <Checkbox id="policy-code" checked={hrPolicies.codeOfConduct} onCheckedChange={(v) => setHrPolicies(prev => ({ ...prev, codeOfConduct: Boolean(v) }))} className="data-[state=checked]:bg-white cursor-pointer data-[state=checked]:text-black" />
-                  <Label htmlFor="policy-code" className="leading-6">Code of Conduct</Label>
+                  <Label htmlFor="policy-code" className="leading-6 font-semibold">Code of Conduct</Label>
                 </div>
                 <div className="h-full grid place-items-center">
-                  <button type="button" className="text-sm text-zinc-300 underline hover:text-white">Read more</button>
+                  <p className="text-xs text-zinc-400 text-left px-4">Kindly accept all the policies and the agreement letter, then collect them from the CHRO, sign them, and hand them over to the HR Manager.</p>
                 </div>
               </div>
 
@@ -942,10 +947,10 @@ export default function SetupPage() {
                 <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 cursor-pointer">
                   <Checkbox id="policy-leave" checked={hrPolicies.leavePolicy} onCheckedChange={(v) => setHrPolicies(prev => ({ ...prev, leavePolicy: Boolean(v) }))} className="data-[state=checked]:bg-white cursor-pointer data-[state=checked]:text-black" />
-                  <Label htmlFor="policy-leave" className="leading-6">Leave Policy</Label>
+                  <Label htmlFor="policy-leave" className="leading-6 font-semibold">Leave Policy</Label>
                 </div>
                 <div className="h-full grid place-items-center">
-                  <button type="button" className="text-sm text-zinc-300 underline hover:text-white">Read more</button>
+                  <p className="text-xs text-zinc-400 text-left px-4">Kindly accept all the policies and the agreement letter, then collect them from the CHRO, sign them, and hand them over to the HR Manager.</p>
                 </div>
               </div>
 
@@ -954,10 +959,10 @@ export default function SetupPage() {
                 <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 cursor-pointer">
                   <Checkbox id="policy-it" checked={hrPolicies.itUsage} onCheckedChange={(v) => setHrPolicies(prev => ({ ...prev, itUsage: Boolean(v) }))} className="data-[state=checked]:bg-white cursor-pointer data-[state=checked]:text-black" />
-                  <Label htmlFor="policy-it" className="leading-6">IT Usage Policy</Label>
+                  <Label htmlFor="policy-it" className="leading-6 font-semibold">IT Usage Policy</Label>
                 </div>
                 <div className="h-full grid place-items-center">
-                  <button type="button" className="text-sm text-zinc-300 underline hover:text-white">Read more</button>
+                  <p className="text-xs text-zinc-400 text-left px-4">Kindly accept all the policies and the agreement letter, then collect them from the CHRO, sign them, and hand them over to the HR Manager.</p>
                 </div>
               </div>
 
@@ -966,10 +971,10 @@ export default function SetupPage() {
                 <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 cursor-pointer">
                   <Checkbox id="policy-conf" checked={hrPolicies.confidentiality} onCheckedChange={(v) => setHrPolicies(prev => ({ ...prev, confidentiality: Boolean(v) }))} className="data-[state=checked]:bg-white cursor-pointer data-[state=checked]:text-black" />
-                  <Label htmlFor="policy-conf" className="leading-6">Confidentiality Agreement</Label>
+                  <Label htmlFor="policy-conf" className="leading-6 font-semibold">Confidentiality Agreement</Label>
                 </div>
                 <div className="h-full grid place-items-center">
-                  <button type="button" className="text-sm text-zinc-300 underline hover:text-white">Read more</button>
+                  <p className="text-xs text-zinc-400 text-left px-4">Kindly accept all the policies and the agreement letter, then collect them from the CHRO, sign them, and hand them over to the HR Manager.</p>
                 </div>
               </div>
 
@@ -978,10 +983,10 @@ export default function SetupPage() {
                 <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 cursor-pointer">
                   <Checkbox id="policy-remote" checked={hrPolicies.remoteWork} onCheckedChange={(v) => setHrPolicies(prev => ({ ...prev, remoteWork: Boolean(v) }))} className="data-[state=checked]:bg-white cursor-pointer data-[state=checked]:text-black" />
-                  <Label htmlFor="policy-remote" className="leading-6">Location Policy</Label>
+                  <Label htmlFor="policy-remote" className="leading-6 font-semibold">Location Policy</Label>
                 </div>
                 <div className="h-full grid place-items-center">
-                  <button type="button" className="text-sm text-zinc-300 underline hover:text-white">Read more</button>
+                  <p className="text-xs text-zinc-400 text-left px-4">Kindly accept all the policies and the agreement letter, then collect them from the CHRO, sign them, and hand them over to the HR Manager.</p>
                 </div>
               </div>
 
@@ -990,10 +995,10 @@ export default function SetupPage() {
                 <div className="absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-white/15 to-transparent pointer-events-none" />
                 <div className="absolute top-3 left-3 flex items-center gap-2 cursor-pointer">
                   <Checkbox id="policy-privacy" checked={hrPolicies.dataPrivacy} onCheckedChange={(v) => setHrPolicies(prev => ({ ...prev, dataPrivacy: Boolean(v) }))} className="data-[state=checked]:bg-white cursor-pointer data-[state=checked]:text-black" />
-                  <Label htmlFor="policy-privacy" className="leading-6">Data Privacy Policy</Label>
+                  <Label htmlFor="policy-privacy" className="leading-6 font-semibold">Data Privacy Policy</Label>
                 </div>
                 <div className="h-full grid place-items-center">
-                  <button type="button" className="text-sm text-zinc-300 underline hover:text-white">Read more</button>
+                  <p className="text-xs text-zinc-400 text-left px-4">Kindly accept all the policies and the agreement letter, then collect them from the CHRO, sign them, and hand them over to the HR Manager.</p>
                 </div>
               </div>
             </div>
@@ -1211,12 +1216,7 @@ export default function SetupPage() {
                   <p className="text-sm text-white/80">Checking all fields, validating documents, and provisioning access…</p>
                 </>
               ) : (
-                <>
-                  <span className="iphone-spinner scale-100" aria-label="Validating" role="status">
-                    <div></div><div></div><div></div><div></div><div></div><div></div>
-                    <div></div><div></div><div></div><div></div><div></div><div></div>
-                  </span>
-                </>
+                <></>
               )}
             </div>
 
@@ -1246,8 +1246,12 @@ export default function SetupPage() {
       </div>
 
 
+      {profilePreviewOpen && (
+        <div className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 transition-all duration-300" aria-hidden="true" />
+      )}
+
       <Dialog open={profilePreviewOpen} onOpenChange={setProfilePreviewOpen}>
-        <DialogContent className="sm:max-w-[480px] bg-black/40 border-white/10 backdrop-blur-md text-white">
+        <DialogContent className="sm:max-w-[480px] bg-black/40 border-white/10 backdrop-blur-md text-white z-50">
           <DialogHeader>
             <DialogTitle className="text-center text-white">Profile Photo</DialogTitle>
           </DialogHeader>

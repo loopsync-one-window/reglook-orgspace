@@ -1041,26 +1041,29 @@ export default function CommunityArea() {
               </AvatarFallback>
             </Avatar>
             <div className="flex-1 min-w-0">
-              <div className="flex items-end space-x-3">
-                <textarea
-                  value={newPost}
-                  onChange={(e) => setNewPost(e.target.value)}
-                  placeholder={displayedText}
-                  className="flex-1 bg-transparent border-none text-white placeholder:text-gray-500 text-sm focus-visible:ring-0 p-0 resize-none min-h-[60px] outline-none"
-                  style={{
-                    background: 'transparent',
-                    color: 'white'
-                  }}
-                />
-                {/* Preview overlay for links - only shown when there are URLs */}
-                {newPost && (
-                  <div className="absolute inset-0 pointer-events-none flex items-end">
-                    <div className="flex-1 bg-transparent text-white text-sm resize-none min-h-[60px] outline-none opacity-0">
-                      {newPost}
+              <div className="flex flex-col space-y-3 w-full">
+                <div className="relative w-full">
+                  <textarea
+                    value={newPost}
+                    onChange={(e) => setNewPost(e.target.value)}
+                    placeholder={displayedText}
+                    className="w-full bg-transparent border-none text-white placeholder:text-gray-500 text-sm focus-visible:ring-0 p-0 resize-none min-h-[60px] outline-none"
+                    style={{
+                      background: 'transparent',
+                      color: 'white'
+                    }}
+                  />
+                  {/* Preview overlay for links - only shown when there are URLs */}
+                  {newPost && (
+                    <div className="absolute inset-0 pointer-events-none flex items-end">
+                      <div className="flex-1 bg-transparent text-white text-sm resize-none min-h-[60px] outline-none opacity-0">
+                        {newPost}
+                      </div>
                     </div>
-                  </div>
-                )}
-                <div className="flex flex-wrap items-center gap-2 justify-end">
+                  )}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2 justify-end pt-2 border-t border-white/5">
                   <input
                     type="file"
                     ref={fileInputRef}
