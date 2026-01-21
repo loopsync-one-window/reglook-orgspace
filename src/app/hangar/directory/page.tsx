@@ -127,8 +127,8 @@ export default function DirectoryPage() {
 
   const filteredEmployees = mockEmployeeData.filter(emp => {
     const matchesSearch = emp.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         emp.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         emp.department.toLowerCase().includes(searchTerm.toLowerCase());
+      emp.position.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      emp.department.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesSearch;
   });
 
@@ -187,7 +187,7 @@ export default function DirectoryPage() {
                 />
               </div>
             </div>
-            
+
             {/* Actions */}
             <div className="flex items-center gap-3">
               <div className="h-6 w-px bg-gray-200"></div>
@@ -219,7 +219,7 @@ export default function DirectoryPage() {
         {/* All Employees */}
         <div className="bg-gradient-to-br from-white to-gray-50/50 rounded-2xl border border-gray-200/60 shadow-lg shadow-gray-500/20 overflow-hidden relative">
           <div className="absolute inset-0 bg-gradient-to-br from-white/15 via-transparent to-transparent pointer-events-none"></div>
-          
+
           {/* Header */}
           <div className="bg-white/80 backdrop-blur-sm border-b border-gray-200/60 px-6 py-4 relative z-10">
             <div className="flex items-center justify-between">
@@ -264,9 +264,8 @@ export default function DirectoryPage() {
                     {filteredEmployees.map((employee) => (
                       <tr
                         key={employee.id}
-                        className={`hover:bg-gray-50/80 transition-colors ${
-                          selectedEmployees.has(employee.id) ? "bg-purple-50/80" : ""
-                        }`}
+                        className={`hover:bg-gray-50/80 transition-colors ${selectedEmployees.has(employee.id) ? "bg-purple-50/80" : ""
+                          }`}
                       >
                         <td className="px-4 py-4">
                           <input

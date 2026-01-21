@@ -1155,7 +1155,7 @@ export default function CommunityArea() {
               const isPostOwner = post.employee_id === currentUserEmployeeId;
 
               return (
-                <div key={post.id} className="p-4 md:p-6 hover:bg-[#0a0a0a] transition-colors duration-200">
+                <div key={post.id} className="p-4 md:p-6 hover:bg-transparent transition-colors duration-200">
                   <div className="grid grid-cols-[40px_1fr] gap-x-3 gap-y-1">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={post.author_avatar || "/profile/default.jpg"} alt={post.author_name} />
