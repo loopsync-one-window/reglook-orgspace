@@ -411,9 +411,9 @@ export default function RealMessageArea({
   };
 
   // Scroll to bottom when messages change
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
+  // useEffect(() => {
+  //   scrollToBottom();
+  // }, [messages]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -955,7 +955,7 @@ export default function RealMessageArea({
               )} */}
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               {/* Export Chat Button */}
               {/* <Button
                 variant="ghost"
@@ -1214,7 +1214,7 @@ export default function RealMessageArea({
           )}
 
           {/* Message Input */}
-          <div className="p-4 pb-16 bg-[#0a0a0a] border-t border-[#1f1f1f]">
+          <div className="p-4 mb-18 bg-[#0a0a0a] border-t border-[#1f1f1f]">
             <div className={`flex items-center gap-3 ${isGroupInfoCollapsed ? 'max-w-6xl' : 'max-w-4xl'} mx-auto`}>
               <input
                 type="file"
