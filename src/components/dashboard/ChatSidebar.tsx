@@ -127,7 +127,7 @@ export default function ChatSidebar({ selectedChat, onSelectChat, activeNavIcon 
     // Show toast without navigation
     setTimeout(() => {
       toast("", {
-        description: "Your account doesn't have the required permissions to access this intranet data. Contact your system administrator to request the appropriate access rights.",
+        description: "Your account doesn't have the required permissions to access this intranet data. Contact your HR manager to request the appropriate access rights.",
         duration: 5000,
         style: {
           background: '#0a0a0a',

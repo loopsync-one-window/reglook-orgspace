@@ -13,10 +13,18 @@ import OrganisationDirectory from "@/components/dashboard/chat/OrganisationDirec
 
 export default function ChatsPage() {
   const [selectedChat, setSelectedChat] = useState<string | null>(null);
-  const [showDisclaimer, setShowDisclaimer] = useState(true);
+  const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [isGroupInfoCollapsed, setIsGroupInfoCollapsed] = useState(true);
   const [activeNavIcon, setActiveNavIcon] = useState("messages");
   const [authToken, setAuthToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    // Check if privacy notice has been accepted
+    const hasAccepted = localStorage.getItem('privacy_notice_accepted');
+    if (!hasAccepted) {
+      setShowDisclaimer(true);
+    }
+  }, []);
 
   // Handle chat selection with content type
   const handleChatSelect = (chatId: string, contentType?: string) => {
@@ -137,7 +145,10 @@ export default function ChatsPage() {
 
       <DisclaimerModal
         isOpen={showDisclaimer}
-        onClose={() => setShowDisclaimer(false)}
+        onClose={() => {
+          localStorage.setItem('privacy_notice_accepted', 'true');
+          setShowDisclaimer(false);
+        }}
       />
     </>
   );

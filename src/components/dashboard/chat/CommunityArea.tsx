@@ -1031,123 +1031,124 @@ export default function CommunityArea() {
           </div>
         </div>
 
-        {/* Post creation area */}
-        <div className="p-4 md:p-6 border-b border-[#1f1f1f]">
-          <div className="flex items-start space-x-3">
-            <Avatar className="h-10 w-10">
-              <AvatarImage src={getCurrentUserAvatar()} alt="Your profile" />
-              <AvatarFallback className="bg-black border-1 border-white/20 text-white">
-                {getCurrentUserName().charAt(0).toUpperCase()}
-              </AvatarFallback>
-            </Avatar>
-            <div className="flex-1 min-w-0">
-              <div className="flex flex-col space-y-3 w-full">
-                <div className="relative w-full">
-                  <textarea
-                    value={newPost}
-                    onChange={(e) => setNewPost(e.target.value)}
-                    placeholder={displayedText}
-                    className="w-full bg-transparent border-none text-white placeholder:text-gray-500 text-sm focus-visible:ring-0 p-0 resize-none min-h-[60px] outline-none"
-                    style={{
-                      background: 'transparent',
-                      color: 'white'
-                    }}
-                  />
-                  {/* Preview overlay for links - only shown when there are URLs */}
-                  {newPost && (
-                    <div className="absolute inset-0 pointer-events-none flex items-end">
-                      <div className="flex-1 bg-transparent text-white text-sm resize-none min-h-[60px] outline-none opacity-0">
-                        {newPost}
+        {/* Combined Scroll Area for Post Creation and Feed */}
+        <ScrollArea ref={scrollAreaRef} className="flex-1 w-full h-full" style={{ scrollbarWidth: 'thin', scrollbarColor: '#333 #111' }}>
+          {/* Post creation area */}
+          <div className="p-4 md:p-6">
+            <div className="flex items-start space-x-3">
+              <Avatar className="h-10 w-10">
+                <AvatarImage src={getCurrentUserAvatar()} alt="Your profile" />
+                <AvatarFallback className="bg-black border-1 border-white/20 text-white">
+                  {getCurrentUserName().charAt(0).toUpperCase()}
+                </AvatarFallback>
+              </Avatar>
+              <div className="flex-1 min-w-0">
+                <div className="flex flex-col space-y-3 w-full">
+                  <div className="relative w-full">
+                    <textarea
+                      value={newPost}
+                      onChange={(e) => setNewPost(e.target.value)}
+                      placeholder={displayedText}
+                      className="w-full bg-transparent border-none text-white placeholder:text-gray-500 text-sm focus-visible:ring-0 p-0 resize-none min-h-[60px] outline-none"
+                      style={{
+                        background: 'transparent',
+                        color: 'white'
+                      }}
+                    />
+                    {/* Preview overlay for links - only shown when there are URLs */}
+                    {newPost && (
+                      <div className="absolute inset-0 pointer-events-none flex items-end">
+                        <div className="flex-1 bg-transparent text-white text-sm resize-none min-h-[60px] outline-none opacity-0">
+                          {newPost}
+                        </div>
                       </div>
-                    </div>
-                  )}
-                </div>
+                    )}
+                  </div>
 
-                <div className="flex flex-wrap items-center gap-2 justify-end pt-2 border-t border-white/5">
-                  <input
-                    type="file"
-                    ref={fileInputRef}
-                    className="hidden"
-                    accept="image/*"
-                    onChange={handleImageChange}
-                  />
-                  <input
-                    type="file"
-                    ref={videoInputRef}
-                    className="hidden"
-                    accept="video/*"
-                    onChange={handleVideoChange}
-                  />
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full bg-transparent border-2 border-white/10 text-white hover:bg-white/10 cursor-pointer hover:text-white h-8 w-8 flex-shrink-0"
-                    onClick={handleImageClick}
-                    disabled={attachments.length >= 1 || isImageUploading || isVideoUploading}
-                  >
-                    {isImageUploading ? (
-                      <div className="iphone-spinner scale-75" style={{ color: '#fff' }} aria-label="Uploading" role="status">
-                        <div></div><div></div><div></div><div></div><div></div><div></div>
-                        <div></div><div></div><div></div><div></div><div></div><div></div>
-                      </div>
-                    ) : (
-                      <ImageIcon size={16} />
-                    )}
-                  </Button>
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="icon"
-                    className="rounded-full bg-transparent border-2 border-white/10 text-white hover:bg-white/10 cursor-pointer hover:text-white h-8 w-8 flex-shrink-0"
-                    onClick={handleVideoClick}
-                    disabled={attachments.length >= 1 || isVideoUploading || isImageUploading}
-                  >
-                    {isVideoUploading ? (
-                      <div className="iphone-spinner scale-75" style={{ color: '#fff' }} aria-label="Uploading" role="status">
-                        <div></div><div></div><div></div><div></div><div></div><div></div>
-                        <div></div><div></div><div></div><div></div><div></div><div></div>
-                      </div>
-                    ) : (
-                      <Play size={16} />
-                    )}
-                  </Button>
-                  <Button
-                    type="button"
-                    onClick={handlePostSubmit}
-                    className="rounded-full bg-blue-600 hover:bg-blue-700 text-white h-8 w-16 p-0 cursor-pointer font-semibold transition-all duration-300 flex-shrink-0"
-                    disabled={!newPost.trim() || isImageUploading || isVideoUploading}
-                    style={{
-                      boxShadow: "0 0 15px rgba(255, 255, 255, 0.2)",
-                    }}
-                  >
-                    Post
-                  </Button>
-                </div>
-              </div>
-              <div className="flex items-center mt-2">
-                {attachments.length > 0 && (
-                  <div className="flex items-center bg-blue-500/20 rounded-full px-3 py-1">
-                    <Paperclip size={14} className="text-blue-400 mr-1" />
-                    <span className="text-blue-400 text-xs">Attachment</span>
+                  <div className="flex flex-wrap items-center gap-2 justify-end pt-2 border-t border-white/5">
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      className="hidden"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                    />
+                    <input
+                      type="file"
+                      ref={videoInputRef}
+                      className="hidden"
+                      accept="video/*"
+                      onChange={handleVideoChange}
+                    />
                     <Button
                       type="button"
                       variant="ghost"
                       size="icon"
-                      className="ml-1 h-4 w-4 rounded-full hover:bg-blue-500/30 hover:text-white"
-                      onClick={handleRemoveAttachments}
+                      className="rounded-full bg-transparent border-2 border-white/10 text-white hover:bg-white/10 cursor-pointer hover:text-white h-8 w-8 flex-shrink-0"
+                      onClick={handleImageClick}
+                      disabled={attachments.length >= 1 || isImageUploading || isVideoUploading}
                     >
-                      <X size={10} />
+                      {isImageUploading ? (
+                        <div className="iphone-spinner scale-75" style={{ color: '#fff' }} aria-label="Uploading" role="status">
+                          <div></div><div></div><div></div><div></div><div></div><div></div>
+                          <div></div><div></div><div></div><div></div><div></div><div></div>
+                        </div>
+                      ) : (
+                        <ImageIcon size={16} />
+                      )}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="icon"
+                      className="rounded-full bg-transparent border-2 border-white/10 text-white hover:bg-white/10 cursor-pointer hover:text-white h-8 w-8 flex-shrink-0"
+                      onClick={handleVideoClick}
+                      disabled={attachments.length >= 1 || isVideoUploading || isImageUploading}
+                    >
+                      {isVideoUploading ? (
+                        <div className="iphone-spinner scale-75" style={{ color: '#fff' }} aria-label="Uploading" role="status">
+                          <div></div><div></div><div></div><div></div><div></div><div></div>
+                          <div></div><div></div><div></div><div></div><div></div><div></div>
+                        </div>
+                      ) : (
+                        <Play size={16} />
+                      )}
+                    </Button>
+                    <Button
+                      type="button"
+                      onClick={handlePostSubmit}
+                      className="rounded-full bg-blue-600 hover:bg-blue-700 text-white h-8 w-16 p-0 cursor-pointer font-semibold transition-all duration-300 flex-shrink-0"
+                      disabled={!newPost.trim() || isImageUploading || isVideoUploading}
+                      style={{
+                        boxShadow: "0 0 15px rgba(255, 255, 255, 0.2)",
+                      }}
+                    >
+                      Post
                     </Button>
                   </div>
-                )}
+                </div>
+                <div className="flex items-center mt-2">
+                  {attachments.length > 0 && (
+                    <div className="flex items-center bg-blue-500/20 rounded-full px-3 py-1">
+                      <Paperclip size={14} className="text-blue-400 mr-1" />
+                      <span className="text-blue-400 text-xs">Attachment</span>
+                      <Button
+                        type="button"
+                        variant="ghost"
+                        size="icon"
+                        className="ml-1 h-4 w-4 rounded-full hover:bg-blue-500/30 hover:text-white"
+                        onClick={handleRemoveAttachments}
+                      >
+                        <X size={10} />
+                      </Button>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        {/* Posts feed */}
-        <ScrollArea ref={scrollAreaRef} className="flex-1 overflow-y-auto w-full" style={{ height: 'calc(100vh - 180px)', scrollbarWidth: 'thin', scrollbarColor: '#333 #111' }}>
+          {/* Posts feed */}
           <div className="divide-y divide-[#1f1f1f] divide-dashed pb-20 md:pb-0">
             {filteredAndSortedPosts.map((post: typeof posts[0]) => {
               const currentUserEmployeeId = getCurrentUserEmployeeId();
@@ -1155,60 +1156,62 @@ export default function CommunityArea() {
 
               return (
                 <div key={post.id} className="p-4 md:p-6 hover:bg-[#0a0a0a] transition-colors duration-200">
-                  <div className="flex space-x-3">
+                  <div className="grid grid-cols-[40px_1fr] gap-x-3 gap-y-1">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={post.author_avatar || "/profile/default.jpg"} alt={post.author_name} />
                       <AvatarFallback className="bg-black border-1 border-white/20 text-white">{post.author_name.charAt(0)}</AvatarFallback>
                     </Avatar>
-                    <div className="flex-1 space-y-2 min-w-0">
-                      <div className="flex items-center justify-between">
-                        <div className="truncate pr-2">
-                          <div className="flex items-center space-x-1">
-                            <span className="font-bold truncate">{post.author_name}</span>
-                            {post.author_username && executiveStatus[post.author_username] && (
-                              <div className="relative group flex-shrink-0">
-                                <Image
-                                  src="/special/executive.svg"
-                                  alt="Verified"
-                                  width={16}
-                                  height={16}
-                                  className="ml-1 relative top-0.5"
-                                />
-                              </div>
-                            )}
-                          </div>
-                          <span className="text-gray-500 text-[14px] truncate block">{post.author_username ? `@${post.author_username}` : post.author_email} · {formatDate(post.created_at)}</span>
+
+                    <div className="flex items-center justify-between min-w-0 col-start-2">
+                      <div className="truncate pr-2">
+                        <div className="flex items-center space-x-1">
+                          <span className="font-bold truncate">{post.author_name}</span>
+                          {post.author_username && executiveStatus[post.author_username] && (
+                            <div className="relative group flex-shrink-0">
+                              <Image
+                                src="/special/executive.svg"
+                                alt="Verified"
+                                width={16}
+                                height={16}
+                                className="ml-1 relative top-0.5"
+                              />
+                            </div>
+                          )}
                         </div>
-                        {isPostOwner && (
-                          <DropdownMenu open={openDropdown === post.id} onOpenChange={(isOpen) => setOpenDropdown(isOpen ? post.id : null)}>
-                            <DropdownMenuTrigger asChild>
-                              <Button
-                                variant="ghost"
-                                size="icon"
-                                className="h-8 w-8 rounded-full hover:bg-[#1a1a1a] hover:text-blue-400 flex-shrink-0"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  setOpenDropdown(openDropdown === post.id ? null : post.id);
-                                }}
-                              >
-                                <MoreHorizontal className="h-4 w-4" />
-                              </Button>
-                            </DropdownMenuTrigger>
-                            <DropdownMenuContent align="end" className="bg-black border-[#1f1f1f]">
-                              <DropdownMenuItem
-                                className="text-red-500 hover:bg-[#1a1a1a] hover:text-red-400 cursor-pointer"
-                                onClick={(e) => {
-                                  e.stopPropagation();
-                                  handleDeletePost(post.id);
-                                }}
-                              >
-                                <Trash2 className="h-4 w-4 mr-2" />
-                                Delete
-                              </DropdownMenuItem>
-                            </DropdownMenuContent>
-                          </DropdownMenu>
-                        )}
+                        <span className="text-gray-500 text-[14px] truncate block">{post.author_username ? `@${post.author_username}` : post.author_email} · {formatDate(post.created_at)}</span>
                       </div>
+                      {isPostOwner && (
+                        <DropdownMenu open={openDropdown === post.id} onOpenChange={(isOpen) => setOpenDropdown(isOpen ? post.id : null)}>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              className="h-8 w-8 rounded-full hover:bg-[#1a1a1a] hover:text-blue-400 flex-shrink-0"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                setOpenDropdown(openDropdown === post.id ? null : post.id);
+                              }}
+                            >
+                              <MoreHorizontal className="h-4 w-4" />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent align="end" className="bg-black border-[#1f1f1f]">
+                            <DropdownMenuItem
+                              className="text-red-500 hover:bg-[#1a1a1a] hover:text-red-400 cursor-pointer"
+                              onClick={(e) => {
+                                e.stopPropagation();
+                                handleDeletePost(post.id);
+                              }}
+                            >
+                              <Trash2 className="h-4 w-4 mr-2" />
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      )}
+                    </div>
+
+                    <div className="col-span-2 md:col-span-1 md:col-start-2 space-y-2 min-w-0 pt-1">
                       <p className="text-[15px] leading-normal break-words">{renderTextWithLinks(post.content)}</p>
 
                       {post.image_url && (
@@ -1373,6 +1376,6 @@ export default function CommunityArea() {
           </div>
         </div>
       </div>
-    </div>
+    </div >
   );
 }
