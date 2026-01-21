@@ -851,7 +851,7 @@ export default function CommunityArea() {
   };
 
   return (
-    <div className="flex w-full h-full bg-black text-white overflow-hidden relative">
+    <div className={`flex w-full h-full bg-black text-white overflow-hidden relative ${commentModalOpen ? 'z-30' : ''}`}>
       {/* Loading overlay */}
       {(isLoading || loading) && (
         <div className="absolute inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
@@ -1150,12 +1150,13 @@ export default function CommunityArea() {
 
           {/* Posts feed */}
           <div className="divide-y divide-[#1f1f1f] divide-dashed pb-20 md:pb-0">
-            {filteredAndSortedPosts.map((post: typeof posts[0]) => {
+            {filteredAndSortedPosts.map((post: typeof posts[0], index: number) => {
               const currentUserEmployeeId = getCurrentUserEmployeeId();
               const isPostOwner = post.employee_id === currentUserEmployeeId;
+              const isLastPost = index === filteredAndSortedPosts.length - 1;
 
               return (
-                <div key={post.id} className="p-4 md:p-6 hover:bg-transparent transition-colors duration-200">
+                <div key={post.id} className={`p-4 md:p-6 hover:bg-transparent transition-colors duration-200 ${isLastPost ? 'mb-[100px]' : ''}`}>
                   <div className="grid grid-cols-[40px_1fr] gap-x-3 gap-y-1">
                     <Avatar className="h-10 w-10">
                       <AvatarImage src={post.author_avatar || "/profile/default.jpg"} alt={post.author_name} />
