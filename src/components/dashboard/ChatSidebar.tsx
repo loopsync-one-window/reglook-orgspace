@@ -248,7 +248,7 @@ export default function ChatSidebar({ selectedChat, onSelectChat, activeNavIcon 
                   chats={filteredDirectMessages}
                   selectedChat={selectedChat}
                   onSelectChat={onSelectChat}
-                  defaultCollapsed={true}
+                  defaultCollapsed={false}
                   onStartNewChat={() => handleNavIconClick('directory')}
                 />
               </div>
