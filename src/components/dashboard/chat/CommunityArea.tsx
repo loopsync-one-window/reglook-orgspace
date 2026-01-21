@@ -864,7 +864,7 @@ export default function CommunityArea() {
 
       {/* Comment Modal */}
       {commentModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div
             className="bg-[#0a0a0a] rounded-xl border border-[#1f1f1f] w-[500px] h-[500px] flex flex-col"
             style={{
@@ -1290,7 +1290,10 @@ export default function CommunityArea() {
                           variant="ghost"
                           size="sm"
                           className={`text-white bg-transparent border-1 border-white/10 hover:text-text-white hover:bg-transparent rounded-full flex items-center space-x-1 px-2 flex-1 justify-center cursor-pointer ${post.isLiked ? 'text-white' : 'text-red-600'}`}
-                          onClick={() => handleLike(post.id)}
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleLike(post.id);
+                          }}
                         >
                           <Heart className="h-4 w-4" />
                           <span>{post.likes_count}</span>
