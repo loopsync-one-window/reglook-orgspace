@@ -864,7 +864,7 @@ export default function CommunityArea() {
 
       {/* Comment Modal */}
       {commentModalOpen && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+        <div className="absolute inset-0 z-[100] flex items-center justify-center bg-black/70 backdrop-blur-sm">
           <div
             className="bg-[#0a0a0a] rounded-xl border border-[#1f1f1f] w-[500px] h-[500px] flex flex-col"
             style={{
