@@ -941,7 +941,7 @@ export default function RealMessageArea({
                 ) : ''}
                 {/* Badge slightly lower - only show if receiver is executive */}
                 {isReceiverExecutive && (
-                  <span className="ml-2 inline-flex items-center justify-center w-5 h-5 relative top-0.5">
+                  <span className="ml-2 mb-1 inline-flex items-center justify-center w-5 h-5 relative top-0.5">
                     <img
                       src="/special/executive.svg"
                       alt="Executive"
