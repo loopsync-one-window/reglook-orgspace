@@ -1214,7 +1214,7 @@ export default function RealMessageArea({
           )}
 
           {/* Message Input */}
-          <div className="p-4 bg-[#0a0a0a] border-t border-[#1f1f1f]">
+          <div className="p-4 pb-16 bg-[#0a0a0a] border-t border-[#1f1f1f]">
             <div className={`flex items-center gap-3 ${isGroupInfoCollapsed ? 'max-w-6xl' : 'max-w-4xl'} mx-auto`}>
               <input
                 type="file"
@@ -1244,20 +1244,18 @@ export default function RealMessageArea({
                   onChange={(e) => setMessage(e.target.value)}
                   onKeyPress={handleKeyPress}
                   placeholder="Type your message..."
-                  className="bg-[#1a1a1a] border-none text-white placeholder:text-gray-600 h-11 rounded-xl pr-10 focus-visible:ring-0 focus-visible:ring-[#4a9eff]"
+                  className="bg-[#1a1a1a] border-none text-white placeholder:text-gray-600 h-11 rounded-md pr-10 focus-visible:ring-0 focus-visible:ring-[#4a9eff]"
                 />
               </div>
               <Button
-                className="w-11 h-11 rounded-xl cursor-pointer 
-                          hover:bg-white/10 text-white 
-                          shadow-[0_0_10px_2px_rgba(255,255,255,0.6)]
-                          hover:shadow-[0_0_20px_4px_rgba(255,255,255,0.9)]
+                className="w-11 h-11 rounded-xl cursor-pointer  bg-white
+                          hover:bg-white/80 text-white 
                           transition-all duration-300
                           flex-shrink-0"
                 onClick={handleSendMessage}
                 disabled={(!message.trim() && !attachmentPreview) || !receiverId || !connected || isUploading}
               >
-                <Send className="w-4 h-4" />
+                <Send className="w-4 h-4 text-black hover:text-black" />
               </Button>
             </div>
           </div>

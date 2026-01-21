@@ -38,7 +38,7 @@ export default function ChatItem({
   return (
     <button
       onClick={() => onClick(contentType)}
-      className={`w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-gradient-to-r hover:from-white/10 hover:to-transparent transition-all cursor-pointer border border-transparent hover:border-white/5 ${isSelected ? "bg-gradient-to-r from-white/15 to-transparent border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]" : ""
+      className={`w-full flex items-center gap-3 p-2.5 rounded-lg hover:bg-gradient-to-r hover:from-black/10 hover:to-transparent transition-all cursor-pointer border border-transparent hover:border-white/5 ${isSelected ? "bg-gradient-to-r from-black/15 to-transparent border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]" : ""
         }`}
     >
       {/* Avatar */}
